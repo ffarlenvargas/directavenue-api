@@ -1,27 +1,31 @@
-module.exports = (options, webpack) => {
-  const lazyImports = [
-    '@nestjs/microservices/microservices-module',
-    '@nestjs/websockets/socket-module',
-  ];
+/* eslint-disable @typescript-eslint/no-require-imports */
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const slsw = require('serverless-webpack');
 
-  return {
-    ...options,
-    externals: [],
-    plugins: [
-      ...options.plugins,
-      new webpack.IgnorePlugin({
-        checkResource(resource) {
-          if (lazyImports.includes(resource)) {
-            try {
-              require.resolve(resource);
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            } catch (err) {
-              return true;
-            }
-          }
-          return false;
-        },
-      }),
+module.exports = {
+  target: 'node',
+  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
+  entry: slsw.lib.entries,
+  devtool: slsw.lib.webpack.isLocal
+    ? 'eval-cheap-module-source-map'
+    : 'source-map',
+  externals: [nodeExternals()],
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ],
-  };
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  output: {
+    libraryTarget: 'commonjs',
+    path: path.join(__dirname, '.webpack'),
+    filename: '[name].js',
+  },
 };

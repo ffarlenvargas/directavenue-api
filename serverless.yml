@@ -1,15 +1,21 @@
 service: serverless-direct-avenue
 
+frameworkVersion: '4'
+
 plugins:
   - serverless-offline
+  - serverless-webpack
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
+
+build:
+  esbuild: false
 
 functions:
   main:
-    handler: dist/main.handler
+    handler: src/main.handler
     events:
       - http:
           method: ANY
@@ -17,3 +23,12 @@ functions:
       - http:
           method: ANY
           path: '{proxy+}'
+
+custom:
+  webpack:
+    webpackConfig: './webpack.config.js'
+    includeModules: true
+  serverless-offline:
+    reloadHandler: true
+    useChildProcesses: true
+    noPrependStageInUrl: true
