@@ -4,7 +4,7 @@ import { ApolloDriverConfig } from '@nestjs/apollo';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
-export class GraphqlOptions implements GqlOptionsFactory {
+export class GraphQLConfigService implements GqlOptionsFactory {
   constructor(private prismaService: PrismaService) {}
   createGqlOptions(): Promise<ApolloDriverConfig> | ApolloDriverConfig {
     return {

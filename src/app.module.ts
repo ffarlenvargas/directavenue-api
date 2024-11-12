@@ -2,20 +2,19 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { GraphqlOptions } from './config/graphql/graphql-config';
-import { HelloWorldModule } from './hello-world/hello-world.module';
-import { PrismaModule } from './config/prisma/prisma.module';
+import { GraphQLConfigService } from './shared/config/graphql/graphql-config.service';
+import { PrismaModule } from './shared/config/prisma/prisma.module';
+import { AdvertiserModule } from './advertiser/advertiser.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      useClass: GraphqlOptions,
+      useClass: GraphQLConfigService,
     }),
-    HelloWorldModule,
     PrismaModule,
+    AdvertiserModule,
   ],
-  providers: [],
 })
 export class AppModule {}
