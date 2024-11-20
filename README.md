@@ -4,10 +4,10 @@
 
 ### How to run?
 
-- Run **npm run start:dev** -> This is going to start Nest and serverless local servers.
+- Run **yarn run start:dev** -> This is going to start Nest and serverless local servers.
 - Dev server -> **localhost:8000**
 - GraphQL Playground -> **localhost:8000/graphql**
-- Run tests -> **npm run test**
+- Run tests -> **yarn run test**
 
 #### Pre-requirements
 
@@ -20,7 +20,7 @@
 
 - Clone this repo.
 - Create .env file using .env.example.
-- Install npm dependencies -> **npm install**
+- Install yarn dependencies -> **yarn install**
 
 ### Technology Stack
 
