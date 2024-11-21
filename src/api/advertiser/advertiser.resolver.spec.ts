@@ -30,7 +30,7 @@ describe('Advertiser Resolver (e2e)', () => {
       ],
     }).compile();
 
-    resolver = moduleFixture.get<AdvertiserResolver>(AdvertiserResolver);
+    resolver = moduleFixture.get<AdvertiserResolver>(GenericService);
   });
 
   it('should be defined', () => {
