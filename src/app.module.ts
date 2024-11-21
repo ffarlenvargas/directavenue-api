@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLConfigService } from './shared/config/graphql/graphql-config.service';
 import { PrismaModule } from './shared/config/prisma/prisma.module';
 import { AdvertiserModule } from './api/advertiser/advertiser.module';
+import { CodeModule } from './api/code/code.module';
 import configuration from './shared/config/configuration';
 
 @Module({
@@ -17,6 +18,7 @@ import configuration from './shared/config/configuration';
     }),
     PrismaModule,
     AdvertiserModule,
+    CodeModule,
   ],
 })
 export class AppModule {}

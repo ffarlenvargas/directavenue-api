@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AdvertiserResolver } from './advertiser.resolver';
+import { CodeResolver } from './code.resolver';
 import { GenericService } from '../services/generic.service';
 
 /**
  * Instantiate the Entity resolver and the generic database access object
  */
 @Module({
-  providers: [GenericService, AdvertiserResolver],
+  providers: [GenericService, CodeResolver],
 })
-export class AdvertiserModule {}
+export class CodeModule {}
