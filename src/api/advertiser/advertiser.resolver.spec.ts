@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdvertiserResolver } from './advertiser.resolver';
-import { AdvertiserService } from './advertiser.service';
+import { GenericService } from '../services/generic.service';
 import { Advertiser } from './dto/advertiser.dto';
 
 const mockAdvertiser: Advertiser = {
@@ -25,8 +25,8 @@ describe('Advertiser Resolver (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       providers: [
-        AdvertiserResolver,
-        { provide: AdvertiserService, useValue: advertiserServiceMock },
+        GenericService,
+        { provide: GenericService, useValue: advertiserServiceMock },
       ],
     }).compile();
 

@@ -1,5 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-
+/**
+ * Database entity class
+ */
 @ObjectType()
 export class Advertiser {
   @Field(() => Int)
