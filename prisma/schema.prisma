@@ -1,0 +1,200 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Accounting {
+  recId   Int       @id @default(autoincrement())
+  acntId  BigInt    @unique(map: "acntId")
+  planId  BigInt
+  logId   BigInt
+  buyLnId BigInt
+  buyId   BigInt
+  advtId  BigInt
+  stnId   BigInt
+  InvNo   String?   @db.VarChar(100)
+  InvDate DateTime? @db.DateTime(0)
+}
+
+model Advertiser {
+  recId      Int      @id @default(autoincrement())
+  advtId     BigInt   @unique(map: "advtId")
+  address    String?  @db.Text
+  advtName   String   @db.VarChar(250)
+  brandName  String   @db.VarChar(250)
+  campName   String   @db.VarChar(250)
+  contact    String?  @db.Text
+  email      String?  @db.Text
+  notes      String?  @db.Text
+  time_stamp DateTime @default(now()) @db.Timestamp(0)
+}
+
+model Buy {
+  recId      Int       @id @default(autoincrement())
+  advtId     BigInt
+  buyId      BigInt
+  buyLnId    BigInt    @unique(map: "buyLnId")
+  planId     BigInt
+  stnId      BigInt
+  trafId     BigInt?
+  additNote  String?   @db.Text
+  advtName   String    @db.VarChar(250)
+  buyer      String    @db.VarChar(100)
+  campName   String    @db.VarChar(250)
+  crtvNote   String?   @db.Text
+  rotDay     String?   @db.VarChar(50)
+  discNote   String?   @db.Text
+  endDate    DateTime? @db.Date
+  endTime    DateTime? @db.Time(0)
+  length     String?   @db.VarChar(50)
+  rate       Decimal?  @db.Decimal(18, 2)
+  rev        String?   @db.VarChar(50)
+  strtDate   DateTime  @db.DateTime(0)
+  strtTime   DateTime? @db.Time(0)
+  stnName    String    @db.VarChar(250)
+  spotTot    Int?
+  w1         Int?
+  w2         Int?
+  w3         Int?
+  w4         Int?
+  w5         Int?
+  w6         Int?
+  w7         Int?
+  w8         Int?
+  w9         Int?
+  w10        Int?
+  w11        Int?
+  w12        Int?
+  w13        Int?
+  w14        Int?
+  time_stamp DateTime  @default(now()) @db.Timestamp(0)
+}
+
+model Code {
+  cdId       BigInt   @default(autoincrement())
+  cdType     String   @db.VarChar(50)
+  cdName     String   @db.VarChar(500)
+  cdMap      String?  @db.VarChar(150)
+  time_stamp DateTime @default(now()) @db.Timestamp(0)
+
+  @@id([cdId, cdType])
+}
+
+model Log {
+  recId      Int      @id @default(autoincrement())
+  logId      BigInt   @unique(map: "logId")
+  buyId      BigInt
+  buyLnId    BigInt
+  planId     BigInt
+  trafId     BigInt?
+  isci       String   @db.VarChar(150)
+  advtName   String   @db.VarChar(250)
+  brdcDt     DateTime @db.DateTime(0)
+  cldrDt     DateTime @db.DateTime(0)
+  campName   String   @db.VarChar(250)
+  crtTtl     String   @db.VarChar(500)
+  logType    Int?
+  progName   String   @db.VarChar(500)
+  rate       Decimal  @db.Decimal(18, 2)
+  length     String   @db.VarChar(50)
+  stnName    String   @db.VarChar(250)
+  time_stamp DateTime @default(now()) @db.Timestamp(0)
+}
+
+model Plan {
+  recId      Int      @id @default(autoincrement())
+  advtId     BigInt
+  planId     BigInt   @unique(map: "planId")
+  stnId      BigInt
+  advtName   String   @db.VarChar(250)
+  brandName  String   @db.VarChar(250)
+  campName   String   @db.VarChar(250)
+  daypart    String?  @db.VarChar(150)
+  length     String?  @db.VarChar(50)
+  nielBook   Int?
+  planDate   DateTime @db.Date
+  primCPM    Int?
+  primCPP    Int?
+  primDemo   Int?
+  primRtg    Int?
+  primUE     Int?
+  progName   String?  @db.VarChar(250)
+  rate       Decimal? @db.Decimal(18, 2)
+  rev        String?  @db.VarChar(50)
+  rotDay     String?  @db.VarChar(50)
+  spotTot    Int?
+  stnName    String   @db.VarChar(250)
+  w1         Int?
+  w2         Int?
+  w3         Int?
+  w4         Int?
+  w5         Int?
+  w6         Int?
+  w7         Int?
+  w8         Int?
+  w9         Int?
+  w10        Int?
+  w11        Int?
+  w12        Int?
+  w13        Int?
+  w14        Int?
+  time_stamp DateTime @default(now()) @db.Timestamp(0)
+}
+
+model Responses {
+  recId      Int       @id @default(autoincrement())
+  logId      BigInt
+  respCd     String    @db.VarChar(50)
+  respVal    Decimal   @db.Decimal(18, 8)
+  srcDate    DateTime  @db.Date
+  respDt     DateTime  @db.DateTime(0)
+  spotDt     DateTime? @db.DateTime(0)
+  uid        String?   @db.VarChar(50)
+  time_stamp DateTime  @default(now()) @db.Timestamp(0)
+}
+
+model SellingDetail {
+  recId      Int       @id @default(autoincrement())
+  stnId      BigInt
+  endDate    DateTime? @db.Date
+  strtDate   DateTime? @db.Date
+  sellDay    String    @db.VarChar(250)
+  sellTime   String    @db.VarChar(250)
+  sellTit    String    @db.VarChar(250)
+  time_stamp DateTime  @default(now()) @db.Timestamp(0)
+}
+
+model Station {
+  recId      Int       @id @default(autoincrement())
+  stnId      BigInt    @unique(map: "stnId")
+  afflt      String?   @db.VarChar(150)
+  avgAge     Int?
+  avgIncome  Decimal?  @db.Decimal(18, 2)
+  buyer      String    @db.VarChar(100)
+  distName   String    @db.VarChar(50)
+  dmaName    String    @db.VarChar(250)
+  dmaRank    Int
+  feed       String    @db.VarChar(50)
+  female     Int
+  lang       String    @db.VarChar(50)
+  male       Int
+  modDate    DateTime? @db.DateTime(0)
+  note       String?   @db.Text
+  repr       String?   @db.VarChar(250)
+  saleCont   String?   @db.Text
+  saleEmail  String?   @db.Text
+  state      String?   @db.VarChar(50)
+  descr      String?   @db.Text
+  logo       String?   @db.Text
+  stnName    String    @db.VarChar(250)
+  subscrib   Int?
+  tmZone     String    @db.VarChar(50)
+  trafCont   String?   @db.Text
+  trafEmail  String?   @db.Text
+  type       String?   @db.VarChar(50)
+  time_stamp DateTime  @default(now()) @db.Timestamp(0)
+}
